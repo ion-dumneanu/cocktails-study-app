@@ -1,7 +1,7 @@
 
 import {useEffect, useState} from 'react';
 
-const ViewComponent = ({cocktail})=>{
+const ViewCocktail = ({cocktail, handleBack})=>{
       
     return (
         <>
@@ -9,9 +9,9 @@ const ViewComponent = ({cocktail})=>{
                 <figcaption>{cocktail.strDrink}</figcaption>
                 <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} height="600" width="500" />
             </figure>
-            {/* <input type="button" value="Back" onClick={()=>this.props.onBack()}/> */}
+            <input type="button" value="Back" onClick={handleBack}/>
         </>
     )
 }
 
-export default ViewComponent;
+export default ViewCocktail;

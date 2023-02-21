@@ -1,8 +1,8 @@
 
 import {useEffect, useState} from 'react';
 
-const SearchComponent = ({category, setCategory, handleViewCocktail})=>{
-
+const SearchCocktail = ({ownCocktails, category, setCategory, handleViewCocktail, handleAddCocktail})=>{
+ 
     const [data, setData] = useState([]);
     const[search, setSearch] = useState(null);
 
@@ -12,9 +12,13 @@ const SearchComponent = ({category, setCategory, handleViewCocktail})=>{
             fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`)
             .then(resp => resp.json())
             .then(json => {
-                setData(json['drinks']);
+                setData(
+                    [ ...json['drinks'], ...ownCocktails.filter(item=>item.strDrink.includes(search))]
+                    );                    
                 setCategory(null);    
             });    
+        } else {
+            setData([]);
         }
 
     }, [search]);      
@@ -23,12 +27,18 @@ const SearchComponent = ({category, setCategory, handleViewCocktail})=>{
 
         if(category){
 
+            console.log(ownCocktails)
+
             fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category.replaceAll(' ', '_')}`)
             .then(resp => resp.json())
             .then(json => {
-                setData(json['drinks']);
+                setData( 
+                    [ ...json['drinks'], ...ownCocktails.filter(item=>item.strCategory===category)]
+                );
                 setSearch(null);
             });    
+        }else {
+            setData([]);
         }
 
     }, [category]);
@@ -49,8 +59,11 @@ const SearchComponent = ({category, setCategory, handleViewCocktail})=>{
             <section>
                 {resultRender}
             </section>
+            <section>
+                <input type="button" value="Add Cocktail" onClick={handleAddCocktail}/>
+            </section>
         </>
     )
 }
 
-export default SearchComponent;
+export default SearchCocktail;
