@@ -16,15 +16,23 @@ function App() {
   const [main, setMain] = useState('search');
 
   useEffect(()=>{    
-    if(!categories) {
+    
       fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
       .then(resp => resp.json())
         .then(json => setCategories(json['drinks'].map(item=>item.strCategory))); 
-    }
+    
+  },[]);
 
-  },[categories]);
+  const handleCategoryClick = (selection)=>{
 
-  const categoriesList = categories.map(item=><li key={item} onClick={()=>setSelectedCategory(item)}>{item}</li>);
+      if(selectedCategory===selection){
+        setSelectedCategory(null); 
+        return;
+      }
+      setSelectedCategory(selection);
+  }
+
+  const categoriesList = categories.map(item=><li key={item} onClick={()=>handleCategoryClick(item)}>{item}</li>);
   
   const mainComponent = main === 'search' ?
                               <SearchCocktail ownCocktails={ownCocktails} category={selectedCategory} setCategory={setSelectedCategory} 
