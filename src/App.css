@@ -5,7 +5,122 @@
           box-sizing: border-box;
 }
 
-#root{
+html {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  background-color: rgb(158, 153, 158);
+  height: 100px;
+  margin: 0;
+}
+
+header > h1 {
+  text-align: center;
+  color: white;
+  line-height: 100px;
+  margin: 0;
+}
+
+footer {
+  background-color: rgb(158, 153, 158);
+  height: 60px;
+  margin: 0;
+}
+
+footer > h4 {
+  text-align: center;
+  color: white;
+  line-height: 50px;
+  margin: 0;
+}
+
+
+
+nav {
+  margin: 0;
+}
+
+nav > ul {
+  line-height: 60px;
+  list-style: none;
+  display: flex;
+  /* margin-top:0px; */
+  padding-left: 0px;
+} 
+
+nav > ul > li {
+  flex-direction: column;
+  width: 150px;
+  background-color: burlywood;
+  text-align:center;
+} 
+
+nav > ul > li:hover {
+  background-color: red;
+}
+
+nav > ul > li.selected {
+  background-color: darkviolet;
+  color: azure;
+} 
+
+
+input.search-widget {
+  width: 60%;
+  height: 40px;
+  background-color: thistle;
+  border-radius: 10px;
+  text-align: center;
+  font-size: large;
+
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+h3.categorySelectedLabel{
+  text-align: center;
+  line-height: 60px;
+  margin: 0;
+}
+
+div.search-result{
+  width: 70%;
+  margin: 0 auto;
+  
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+div.search-result > figure {
+  width: 200px;
+  min-width: 100px;
+  
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+div.add-cocktail{
+  width: 70%;
+  margin: 0 auto;
+}
+
+div.add-cocktail > input {
+  line-height: 40px;  
+  padding: 5 10 10 5;
+}
+
+
+/* #root{
   position: relative;
   background-color: aqua;
   height: 100vh;
@@ -42,7 +157,7 @@ footer{
 ul.nav {
   position: relative;
   top:0;
-  /* padding: 0px; */
+  padding: 0px;
   background-color: hotpink;
   height: 5vh;
 }
@@ -58,5 +173,5 @@ ul.nav > li:hover {
 
 ul.nav > li.selected {
   background-color: green;
-}
+} */
 

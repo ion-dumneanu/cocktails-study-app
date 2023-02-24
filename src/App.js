@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-// import './App.css';
+import './App.css';
 import SearchCocktail from './component/SearchCocktail';
 import ViewCocktail from './component/ViewCocktail';
 import AddCocktail from './component/AddCocktail';
@@ -32,7 +32,8 @@ function App() {
       setSelectedCategory(selection);
   }
 
-  const categoriesList = categories.map(item=><li key={item} onClick={()=>handleCategoryClick(item)}>{item}</li>);
+  const categoriesList = categories.map(item=><li key={item} onClick={()=>handleCategoryClick(item)}
+                                                className={item===selectedCategory && 'selected'}      >{item}</li>);
   
   const mainComponent = main === 'search' ?
                               <SearchCocktail ownCocktails={ownCocktails} category={selectedCategory} setCategory={setSelectedCategory} 
@@ -58,7 +59,7 @@ function App() {
         {mainComponent}
       </main>
       <footer>
-        <p>Footer</p>
+        <h4>Footer</h4>
       </footer>
     </>
   );

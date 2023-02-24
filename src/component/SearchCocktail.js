@@ -48,88 +48,32 @@ const SearchCocktail = (props)=>{
         setData([]);
 
     }, [category, search]);    
-    
-    // useEffect(() => {
-    //     console.log("use effect category ", props.category)
-        
-    //     if(props.category){
-
-    //         const ownCocktailsFilteredByCategory = ownCocktails.filter(item=>item.strCategory===props.category);
-
-    //         fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${props.category.replaceAll(' ', '_')}`)
-    //         .then(resp => resp.json())
-    //         .then(json => {
-    //             setData( 
-    //                 [ ...json['drinks'], ...ownCocktailsFilteredByCategory]
-    //             );
-    //             setSearch(null);
-    //         });    
-            
-    //         return;
-    //     }
-
-    // }, [props.category]);    
-    
-    // useEffect(() => {
-         
-    //     if(search){
-
-    //         const ownCocktailsFilteredBySearch = ownCocktails.filter(item=>item.strDrink.includes(search));
-
-    //         fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`)
-    //         .then(resp => resp.json())
-    //         .then(json => {
-    //             setData(
-    //                 [ ...json['drinks'], ...ownCocktailsFilteredBySearch]
-    //                 );                    
-    //             setCategory(null);    
-    //         });    
-            
-    //         return;
-    //     } 
-
-    //     // if(category){
-
-    //     //     const ownCocktailsFilteredByCategory = ownCocktails.filter(item=>item.strCategory===category);
-
-    //     //     fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category.replaceAll(' ', '_')}`)
-    //     //     .then(resp => resp.json())
-    //     //     .then(json => {
-    //     //         setData( 
-    //     //             [ ...json['drinks'], ...ownCocktailsFilteredByCategory]
-    //     //         );
-    //     //         setSearch(null);
-    //     //     });    
-            
-    //     //     return;
-    //     // }
-
-    //     // console.log("set empty data")   
-    //     // setData([]);
-
-    // }, [category, search]);    
-    
-
-    
-      
+          
     const resultRender = data.map(item =>
         <figure key={item.idDrink} onClick={()=>handleViewCocktail(item)}>
             <img src={item.strDrinkThumb} alt={item.strDrink} height="130" width="130" />
-            <figcaption>{item.strDrink}</figcaption>
+            <figcaption >{item.strDrink}</figcaption>
         </figure>
     );
 
     return (
         <>
             <section>
-            <input value={search || ''} onChange={({target:{value}})=>{setSearch(value);setCategory(null);}}/>
+                <input value={search || ''} 
+                onChange={({target:{value}})=>{setSearch(value);setCategory(null);}}
+                className='search-widget' placeholder='Search here' 
+                />
             </section>
-            <section>{category || 'No category'}</section>
+            <section><h3 className='categorySelectedLabel'>-------------------    {category || 'No category'}    -------------------</h3></section>
             <section>
-                {resultRender}
+                <div className='search-result'>
+                    {resultRender}
+                </div>
             </section>
-            <section>
-                <input type="button" value="Add Cocktail" onClick={handleAddCocktail}/>
+            <section> 
+                <div className='add-cocktail'>
+                    <input type="button" value="Add Cocktail" onClick={handleAddCocktail}/>
+                </div>
             </section>
         </>
     )
