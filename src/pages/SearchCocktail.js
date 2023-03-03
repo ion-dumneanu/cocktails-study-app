@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 
 const SearchCocktail = (props)=>{
  
-    const {ownCocktails, category, setCategory, handleViewCocktail, handleAddCocktail} = props;
+    const {ownCocktails, category, unSetCategory, handleViewCocktail, handleAddCocktail} = props;
 
     const [data, setData] = useState([]);
     const[search, setSearch] = useState(category && null);
@@ -33,7 +33,7 @@ const SearchCocktail = (props)=>{
          
         if(search){
 
-            setCategory(null);    
+            unSetCategory();    
             const ownCocktailsFilteredBySearch = ownCocktails.filter(item=>item.strDrink.includes(search));
 
             fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`)
@@ -62,7 +62,7 @@ const SearchCocktail = (props)=>{
         <>
             <section>
                 <input value={search || ''} 
-                onChange={({target:{value}})=>{setSearch(value);setCategory(null);}}
+                onChange={({target:{value}})=>setSearch(value)}
                 className='search-widget' placeholder='Search here' 
                 />
             </section>

@@ -37,7 +37,7 @@ function App() {
                                                 className={item===selectedCategory && 'selected'}      >{item}</li>);
   
   const mainComponent = main === 'search' ?
-                              <SearchCocktail ownCocktails={ownCocktails} category={selectedCategory} setCategory={setSelectedCategory} 
+                              <SearchCocktail ownCocktails={ownCocktails} category={selectedCategory} unSetCategory={()=>setSelectedCategory(null)} 
                                   handleViewCocktail={(item)=>{setSelectedCocktail(item);setMain('view')}} 
                                   handleAddCocktail={(item)=>setMain('add')} />
                               :(main==='add' ? 
