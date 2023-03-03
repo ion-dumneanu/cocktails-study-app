@@ -5,31 +5,14 @@ const SearchCocktail = (props)=>{
  
     const {ownCocktails, category, setCategory, handleViewCocktail, handleAddCocktail} = props;
 
-    console.log("init props category ", props.category)
-
-
     const [data, setData] = useState([]);
-    const[search, setSearch] = useState(null);
+    const[search, setSearch] = useState(category && null);
 
     useEffect(() => {
-         
-        if(search){
-
-            const ownCocktailsFilteredBySearch = ownCocktails.filter(item=>item.strDrink.includes(search));
-
-            fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`)
-            .then(resp => resp.json())
-            .then(json => {
-                setData(
-                    [ ...json['drinks'], ...ownCocktailsFilteredBySearch]
-                    );                    
-                setCategory(null);    
-            });    
-            
-            return;
-        } 
-
+              
         if(category){
+
+            setSearch(null);
 
             const ownCocktailsFilteredByCategory = ownCocktails.filter(item=>item.strCategory===category);
 
@@ -39,15 +22,34 @@ const SearchCocktail = (props)=>{
                 setData( 
                     [ ...json['drinks'], ...ownCocktailsFilteredByCategory]
                 );
-                setSearch(null);
             });    
             
             return;
         }
 
+    }, [category]); 
+
+    useEffect(() => {
+         
+        if(search){
+
+            setCategory(null);    
+            const ownCocktailsFilteredBySearch = ownCocktails.filter(item=>item.strDrink.includes(search));
+
+            fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`)
+            .then(resp => resp.json())
+            .then(json => {
+                setData(
+                    [ ...json['drinks'], ...ownCocktailsFilteredBySearch]
+                    );                    
+            });    
+            
+            return;
+        } 
+
         setData([]);
 
-    }, [category, search]);    
+    }, [search]);   
           
     const resultRender = data.map(item =>
         <figure key={item.idDrink} onClick={()=>handleViewCocktail(item)}>

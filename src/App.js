@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
 
 import './App.css';
-import SearchCocktail from './component/SearchCocktail';
-import ViewCocktail from './component/ViewCocktail';
-import AddCocktail from './component/AddCocktail';
+
+import SearchCocktail from './pages/SearchCocktail';
+import ViewCocktail from './pages/ViewCocktail';
+import AddCocktail from './pages/AddCocktail';
 
 function App() {
   
@@ -51,7 +52,7 @@ function App() {
         <h1>Cocktails</h1>
       </header>
       <nav>
-        <ul className='nav'>
+        <ul>
           {categoriesList}
         </ul>
       </nav>
