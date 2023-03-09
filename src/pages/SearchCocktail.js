@@ -1,39 +1,26 @@
 
 import {useEffect, useState} from 'react';
+import { Link, useLoaderData, useLocation } from 'react-router-dom';
 
 const SearchCocktail = (props)=>{
- 
-    const {ownCocktails, category, unSetCategory, handleViewCocktail, handleAddCocktail} = props;
+    console.info('SearchCocktail >>>>')
+    
+    const location = useLocation();
+    console.log('location:', location);
+    console.log('props:', location);
+
+    const category  =  location?.state?.category;        
+    const ownCocktails = location?.state?.ownCocktails || [];
+
+    const {unSetCategory, handleViewCocktail, handleAddCocktail} = props;
 
     const [data, setData] = useState([]);
-    const[search, setSearch] = useState(category && null);
+    const[search, setSearch] = useState(null);
 
     useEffect(() => {
               
-        if(category){
+        if(search ){
 
-            setSearch(null);
-
-            const ownCocktailsFilteredByCategory = ownCocktails.filter(item=>item.strCategory===category);
-
-            fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category.replaceAll(' ', '_')}`)
-            .then(resp => resp.json())
-            .then(json => {
-                setData( 
-                    [ ...json['drinks'], ...ownCocktailsFilteredByCategory]
-                );
-            });    
-            
-            return;
-        }
-
-    }, [category]); 
-
-    useEffect(() => {
-         
-        if(search){
-
-            unSetCategory();    
             const ownCocktailsFilteredBySearch = ownCocktails.filter(item=>item.strDrink.includes(search));
 
             fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`)
@@ -45,17 +32,39 @@ const SearchCocktail = (props)=>{
             });    
             
             return;
-        } 
-
-        setData([]);
+        }
 
     }, [search]);   
           
+    useEffect(() => {
+
+        if(category){
+            setSearch(null);
+
+            fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category.replaceAll(' ', '_')}`)
+            .then(resp => resp.json())
+            .then(json => {
+                setData( [...json['drinks']]
+                    // [ ...json['drinks'], ...ownCocktailsFilteredByCategory]
+                );
+            });    
+            
+            return;
+        }
+
+    }, [category]);   
+
+
+
     const resultRender = data.map(item =>
-        <figure key={item.idDrink} onClick={()=>handleViewCocktail(item)}>
-            <img src={item.strDrinkThumb} alt={item.strDrink} height="130" width="130" />
-            <figcaption >{item.strDrink}</figcaption>
-        </figure>
+        <Link to="/cocktails/view" state={{...item}} >
+            <figure key={item.idDrink} 
+            // onClick={()=>handleViewCocktail(item)}
+            >
+                <img src={item.strDrinkThumb} alt={item.strDrink} height="130" width="130" />
+                <figcaption >{item.strDrink}</figcaption>
+            </figure>
+        </Link>
     );
 
     return (
@@ -74,11 +83,15 @@ const SearchCocktail = (props)=>{
             </section>
             <section> 
                 <div className='add-cocktail'>
-                    <input type="button" value="Add Cocktail" onClick={handleAddCocktail}/>
+                    <Link to="/cocktails/add">
+                        <button>Add Cocktail</button>    
+                    </Link> 
                 </div>
             </section>
         </>
     )
 }
+
+
 
 export default SearchCocktail;

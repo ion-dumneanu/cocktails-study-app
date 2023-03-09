@@ -1,68 +1,47 @@
-import {useEffect, useState} from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Root from './pages/Root';
 
 import './App.css';
-
 import SearchCocktail from './pages/SearchCocktail';
-import ViewCocktail from './pages/ViewCocktail';
 import AddCocktail from './pages/AddCocktail';
+import ViewCocktail from './pages/ViewCocktail';
+
+const router = createBrowserRouter(
+  [{path: "/",
+  element: <Root />,
+  id:'root',
+  loader: async ({ request, params })=>{
+    console.info('request & params');
+    console.log(request,'\n', params);
+    const resp = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    const json = await resp.json();
+    return json['drinks'].map(item=>item.strCategory);
+  },
+  // errorElement: <Error/>,
+  children: [
+    {path:'/cocktails', element: <SearchCocktail />},
+    {path:'/cocktails/add', element: <AddCocktail />},
+    {path:'/cocktails/view', element: <ViewCocktail />}
+    // {path:'/drink', element: <Drink />},
+    // {path:'/drink/:drinkId', element: <DrinkDetails />}
+  ]}]
+);
 
 function App() {
-  
-  const [categories, setCategories] = useState([]);
-  const [ownCocktails, setOwnCocktails] = useState([]);
-  
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedCocktail, setSelectedCocktail] = useState(null);
-
-  const [main, setMain] = useState('search');
-
-  useEffect(()=>{    
-    
-      fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
-      .then(resp => resp.json())
-        .then(json => setCategories(json['drinks'].map(item=>item.strCategory))); 
-    
-  },[]);
-
-  const handleCategoryClick = (selection)=>{
-
-      if(selectedCategory===selection){
-        setSelectedCategory(null); 
-        return;
-      }
-      setSelectedCategory(selection);
-  }
-
-  const categoriesList = categories.map(item=><li key={item} onClick={()=>handleCategoryClick(item)}
-                                                className={item===selectedCategory && 'selected'}      >{item}</li>);
-  
-  const mainComponent = main === 'search' ?
-                              <SearchCocktail ownCocktails={ownCocktails} category={selectedCategory} unSetCategory={()=>setSelectedCategory(null)} 
-                                  handleViewCocktail={(item)=>{setSelectedCocktail(item);setMain('view')}} 
-                                  handleAddCocktail={(item)=>setMain('add')} />
-                              :(main==='add' ? 
-                                  <AddCocktail categories={categories} handleBack={()=>setMain('search')} 
-                                      handleAdd={(item)=>{setOwnCocktails([...ownCocktails, item]);setMain('search')}}/> 
-                                  : <ViewCocktail cocktail={selectedCocktail} handleBack={()=>setMain('search')}/>)
-                  ;
-
   return (
     <>
       <header>
         <h1>Cocktails</h1>
       </header>
-      <nav>
-        <ul>
-          {categoriesList}
-        </ul>
-      </nav>
       <main>
-        {mainComponent}
+        <RouterProvider router={router}/>
       </main>
       <footer>
         <h4>Footer</h4>
       </footer>
+
     </>
+
   );
 }
 
