@@ -9,7 +9,7 @@ const NavigationBar = (props)=>{
     const [selected, setSelected] = useState(null);   
 
     const categoriesList = categories.map(item=><li key={item} onClick={()=>setSelected(item)}>
-        <Link to="/cocktails" state={{category:item, ownCocktails}}>{item}</Link>        
+        <Link to="/" state={{category:item, ownCocktails}}>{item}</Link>        
     </li>);
 
     return (

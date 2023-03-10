@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
 
-const Root = ()=>{    
-    const {state} = useLocation();
-    const {newCocktail} = state || {};
+const Root = ()=>{   
+    console.info('Root >>>') 
+    const location = useLocation();
+    console.log(location);    
+    const {newCocktail} = location.state || {};
 
     const [ownCocktails, setOwnCocktails]=useState([]);
 

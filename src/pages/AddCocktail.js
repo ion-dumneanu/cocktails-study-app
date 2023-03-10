@@ -23,7 +23,8 @@ const AddCocktail = (props)=>{
     const handleSubmit = event => {
         event.preventDefault(); 
         const newCocktailWithId = {...newCocktail, idDrink: [...Object.values(newCocktail), new Date().getTime()].join('')};
-        navigate(-1, {state:{newCocktail:newCocktailWithId}});
+        console.log('submit: ', newCocktailWithId);
+        navigate("/", {state:{newCocktail:newCocktailWithId}});
     };
 
     const categoriesOptionsToRender = categories.map(item=><option key={item} value={newCocktail.strCategory}>{item}</option>);
