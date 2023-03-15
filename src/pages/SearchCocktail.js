@@ -6,16 +6,12 @@ const SearchCocktail = (props)=>{
     console.info('SearchCocktail >>>>')
     
     const location = useLocation();
-    console.log('location:', location);
     console.log('props:', props);
+    console.log('location:', location);
 
 
-    const {category, ownCocktails=[]}  =  location?.state;        
-
-    // const category  =  location?.state?.category;        
-    // const ownCocktails = location?.state?.ownCocktails || [];
-
-    const {unSetCategory, handleViewCocktail, handleAddCocktail} = props;
+    const ownCocktails  = [] || location.state?.ownCocktails;        
+    const category  =  location.state?.category;
 
     const [data, setData] = useState([]);
     const[search, setSearch] = useState(null);
