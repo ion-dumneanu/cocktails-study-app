@@ -1,6 +1,6 @@
 
 import {useEffect, useState} from 'react';
-import { Link, useLoaderData, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const SearchCocktail = (props)=>{
     console.info('SearchCocktail >>>>')
@@ -54,8 +54,6 @@ const SearchCocktail = (props)=>{
         }
 
     }, [category]);   
-
-
 
     const resultRender = data.map(item =>
         <Link to="/view" state={{...item}} >
