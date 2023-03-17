@@ -2,6 +2,9 @@
 import {useEffect, useState} from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import './Search.css';
+
+
 const SearchCocktail = (props)=>{
     console.info('SearchCocktail >>>>')
     
@@ -10,7 +13,7 @@ const SearchCocktail = (props)=>{
     console.log('location:', location);
 
 
-    const ownCocktails  = [] || location.state?.ownCocktails;        
+    const ownCocktails  = location.state?.ownCocktails || [];        
     const category  =  location.state?.category;
 
     const [data, setData] = useState([]);
@@ -21,6 +24,7 @@ const SearchCocktail = (props)=>{
         if(search ){
 
             const ownCocktailsFilteredBySearch = ownCocktails.filter(item=>item.strDrink.includes(search));
+            console.log('ownCocktails filtered ', ownCocktailsFilteredBySearch, ' \n and all ',ownCocktails);
 
             fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`)
             .then(resp => resp.json())
@@ -67,7 +71,7 @@ const SearchCocktail = (props)=>{
     );
 
     return (
-        <>
+        <article>
             <section>
                 <input value={search || ''} 
                 onChange={({target:{value}})=>setSearch(value)}
@@ -87,7 +91,7 @@ const SearchCocktail = (props)=>{
                     </Link> 
                 </div>
             </section>
-        </>
+        </article>
     )
 }
 

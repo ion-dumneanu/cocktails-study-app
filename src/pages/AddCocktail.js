@@ -2,6 +2,8 @@
 import {useState} from 'react';
 import { useNavigate, useRouteLoaderData } from 'react-router-dom';
 
+import './Add.css';
+
 const AddCocktail = (props)=>{
     console.info('AddCocktail>>>>', props);
         
@@ -30,22 +32,37 @@ const AddCocktail = (props)=>{
     const categoriesOptionsToRender = categories.map(item=><option key={item} value={newCocktail.strCategory}>{item}</option>);
 
     return (
-        <>
-            <form onSubmit={handleSubmit} method="post" id="addCocktailForm">
-                <input type="text" name="strDrink" placeholder='name' required value={newCocktail.strDrink} onChange={handleInputChange} />
-                <input type="text" name="strIngredient1" placeholder='1st ingredient' required value={newCocktail.strIngredient1} onChange={handleInputChange} />
-                <input type="text" name="strIngredient2" placeholder='2nd ingredient' required value={newCocktail.strIngredient2} onChange={handleInputChange} />
+        <form onSubmit={handleSubmit} method="post" id="addCocktailForm">
+            <article className='addcocktail'>
+                    <div>
+                        <input type="file" name="strDrinkThumb" required onChange={handleInputChange} />
+                    </div>
+                    <div>
+                        <ul>
+                            <li>
+                                <input type="text" name="strDrink" placeholder='name' required value={newCocktail.strDrink} onChange={handleInputChange} />
+                            </li>                            
+                            <li>
+                                <input type="text" name="strIngredient1" placeholder='1st ingredient' required value={newCocktail.strIngredient1} onChange={handleInputChange} />
+                            </li>
+                            <li>
+                                <input type="text" name="strIngredient2" placeholder='2nd ingredient' required value={newCocktail.strIngredient2} onChange={handleInputChange} />
+                            </li>
+                            <li>
+                                <select name="strCategory" form="addCocktailForm" onChange={handleInputChange}>
+                                    <option value="" disabled selected hidden>Select category ...</option>
+                                    {categoriesOptionsToRender}
+                                </select>
+                            </li>
 
-                <select name="strCategory" form="addCocktailForm" onChange={handleInputChange}>
-                    <option value="" disabled selected hidden>Select category ...</option>
-                    {categoriesOptionsToRender}
-                </select>
-                <input type="file" name="strDrinkThumb" required onChange={handleInputChange} />
-
-                <button onClick={handleBack}>Back</button>
-                <input type="submit" value="Submit"/>
-            </form>
-        </>
+                            <li>
+                                <input type="button" value="Back"  onClick={handleBack}/>
+                                <input type="submit" value="Submit"/>
+                            </li>
+                            </ul>
+                    </div>
+            </article>
+        </form>
     )
 }
 

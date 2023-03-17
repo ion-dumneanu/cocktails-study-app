@@ -22,7 +22,6 @@ const router = createBrowserRouter(
     {path:'/', element: <SearchCocktail />},
     {path:'/add', element: <AddCocktail />},
     {path:'/view', element: <ViewCocktail />}
-    // {path:'/drink', element: <Drink />},
     // {path:'/drink/:drinkId', element: <DrinkDetails />}
   ]}]
 );

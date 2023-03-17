@@ -1,0 +1,21 @@
+.addcocktail{
+  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addcocktail div {
+  flex-direction: column;
+}
+
+.addcocktail ul {  
+  line-height: 30px;
+  list-style: none;
+  padding-left: 0px;
+} 
+
+.addcocktail ul>li {
+  float: left;
+  clear: left;
+} 

@@ -43,6 +43,10 @@ footer > h4 {
   margin: 0;
 }
 
+section.navigationBar{
+  margin: 0 auto;
+}
+
 nav {
   margin: 0;
 }
@@ -70,7 +74,7 @@ nav > ul > li.selected {
   color: azure;
 } 
 
-input.search-widget {
+/* input.search-widget {
   width: 60%;
   height: 40px;
   background-color: thistle;
@@ -82,7 +86,7 @@ input.search-widget {
   margin: 0 auto;
   margin-top: 10px;
   margin-bottom: 10px;
-}
+} */
 
 h3.categorySelectedLabel{
   text-align: center;
@@ -109,24 +113,4 @@ div.search-result > figure {
   
   flex-direction: column;
   justify-content: center;
-}
-
-figcaption {
-  text-align: center;
-}
-
-div.add-cocktail{
-  width: 70%;
-  margin: 0 auto;
-}
-
-div.add-cocktail > input {
-  line-height: 40px;  
-  padding: 5 10 10 5;
-}
-
-main> section > figure>figcaption, button, img {  
-  display: block;
-  margin: 0 auto;
-  text-align: center;
 }

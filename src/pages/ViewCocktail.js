@@ -11,13 +11,13 @@ const ViewCocktail = (props)=>{
     const {strDrink, strDrinkThumb} = location.state;
 
     return (
-        <section className='view'>
+        <article>
             <figure>
                 <figcaption>{strDrink}</figcaption>
                 <img src={strDrinkThumb} alt={strDrink} height="600" width="500" />
             </figure>
             <button onClick={handleBack}>Back</button>
-        </section>
+        </article>
     )
 }
 
